@@ -1,0 +1,12 @@
+#IDE files
+.classpath
+nb-configuration.xml
+.project
+.settings
+
+
+#Build files
+target/*
+
+#Lib folder
+lib/*
