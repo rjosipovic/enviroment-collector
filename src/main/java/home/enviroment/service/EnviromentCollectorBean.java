@@ -53,7 +53,7 @@ public class EnviromentCollectorBean {
             @QueryParam("presure")String presure,
             @QueryParam("humidity")String humidity) {
         String logMsg = MessageFormat.format("Temp: {0}, Presure: {1}, Humidity: {2}", temperature, presure, humidity);
-        LOGGER.log(Level.INFO, logMsg);
+        LOGGER.log(Level.FINE, logMsg);
         mesurementHandlerBean.storeMesurements(temperature, presure, humidity);
         return "mesurement recieved";
     }
@@ -62,7 +62,7 @@ public class EnviromentCollectorBean {
     @Path("getAll")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllMesurments() {
-    	LOGGER.log(Level.INFO, "Entering getAllMesurements ...");
+    	LOGGER.log(Level.FINE, "Entering getAllMesurements ...");
         List<Mesurement> allMesurments = mesurementHandlerBean.getAllMesurments();
         return Response.ok(allMesurments).build();
     }
