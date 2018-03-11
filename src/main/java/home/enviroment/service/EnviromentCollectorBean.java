@@ -66,6 +66,15 @@ public class EnviromentCollectorBean {
         List<Mesurement> allMesurments = mesurementHandlerBean.getAllMesurments();
         return Response.ok(allMesurments).build();
     }
+    @GET
+    @Path("getLast")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getLastMesurments(@QueryParam("limit")int limit) {
+    	String logMsg = MessageFormat.format("Enetering getLastMesurements, limit={0}", limit);
+    	LOGGER.log(Level.INFO, logMsg);
+        List<Mesurement> limitMesurments = mesurementHandlerBean.getlLastMesurements(limit);
+        return Response.ok(limitMesurments).build();
+    }
     
     @GET
     @Path("getLast")

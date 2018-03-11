@@ -48,6 +48,10 @@ public class MesurementHandlerBean {
         return em.createNamedQuery("getAllMesurments").getResultList();
     }
     
+    public List<Mesurement> getlLastMesurements(int limit) {
+    	return em.createNamedQuery("getAllMesurments").setMaxResults(limit).getResultList();
+    }
+    
     public List<Mesurement> getLastHourMesurments() {
         Query q = em.createNamedQuery("getLastHourMesurments");
         Calendar c = Calendar.getInstance();
