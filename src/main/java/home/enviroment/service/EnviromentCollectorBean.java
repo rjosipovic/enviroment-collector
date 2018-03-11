@@ -67,7 +67,7 @@ public class EnviromentCollectorBean {
         return Response.ok(allMesurments).build();
     }
     @GET
-    @Path("getLast")
+    @Path("getLastLimit")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getLastMesurments(@QueryParam("limit")int limit) {
     	String logMsg = MessageFormat.format("Enetering getLastMesurements, limit={0}", limit);
@@ -77,7 +77,7 @@ public class EnviromentCollectorBean {
     }
     
     @GET
-    @Path("getLast")
+    @Path("getLastHour")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getLastMesurements() {
     	LOGGER.log(Level.INFO, "Entering getLastMesurements ...");
