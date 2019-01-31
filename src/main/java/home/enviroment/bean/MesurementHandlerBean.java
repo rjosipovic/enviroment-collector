@@ -5,10 +5,8 @@
  */
 package home.enviroment.bean;
 
-import home.enviroment.entity.Humidity;
 import home.enviroment.entity.Mesurement;
-import home.enviroment.entity.Pressure;
-import home.enviroment.entity.Temperature;
+import home.enviroment.entity.MesurementType;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -39,33 +37,23 @@ public class MesurementHandlerBean {
         LOGGER.log(Level.FINER, "MesurementHandlerBean created");
     }
     
+    private void storeMesurement(MesurementType type, Float value) {
+    	Mesurement mesurement = new Mesurement();
+    	mesurement.setMesureTime(new Date());
+    	mesurement.getAttributes().put(type.getTag(), value.toString());
+    	em.persist(mesurement);    	
+    }
+    
     public void storeTemperature(Float temperatureValue) {
-    	Temperature temperature = new Temperature();
-    	temperature.setMesureTime(new Date());
-    	temperature.setValue(temperatureValue);
-    	em.persist(temperature);
+    	storeMesurement(MesurementType.TEMPERATURE, temperatureValue);
     }
 
     public void storePressure(Float pressureValue) {
-    	Pressure pressure = new Pressure();
-    	pressure.setMesureTime(new Date());
-    	pressure.setValue(pressureValue);
-    	em.persist(pressure);
-    }
-    public void storeHumidity(Float humidityValue) {
-    	Humidity humidity = new Humidity();
-    	humidity.setMesureTime(new Date());
-    	humidity.setValue(humidityValue);
-    	em.persist(humidity);
+    	storeMesurement(MesurementType.PRESSURE, pressureValue);
     }
     
-    public void storeMesurements(String temperature, String presure, String humidity) {
-        Mesurement mesurement = new Mesurement();
-        mesurement.setMesureTime(new Date());
-        mesurement.setTemperature(Float.parseFloat(temperature));
-        mesurement.setPresure(Float.parseFloat(presure));
-        mesurement.setHumidity(Float.parseFloat(humidity));
-        em.persist(mesurement);
+    public void storeHumidity(Float humidityValue) {
+    	storeMesurement(MesurementType.HUMIDITY, humidityValue);
     }
     
     public List<Mesurement> getAllMesurments() {

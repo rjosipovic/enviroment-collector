@@ -47,18 +47,6 @@ public class EnviromentCollectorBean {
     }
     
     @GET
-    @Path("mesure")
-    public String mesure(
-            @QueryParam("temperature")String temperature,
-            @QueryParam("presure")String presure,
-            @QueryParam("humidity")String humidity) {
-        String logMsg = MessageFormat.format("Temp: {0}, Presure: {1}, Humidity: {2}", temperature, presure, humidity);
-        LOGGER.log(Level.FINE, logMsg);
-        mesurementHandlerBean.storeMesurements(temperature, presure, humidity);
-        return "mesurement recieved";
-    }
-    
-    @GET
     @Path("temperature")
     public String mesureTemperature(@QueryParam("value")String temperature) {
     	LOGGER.log(Level.FINE, String.format("Received temperature mesurement [%s]", temperature));

@@ -7,6 +7,9 @@ package home.enviroment.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +22,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
 /**
  *
  * @author roman
@@ -29,28 +35,24 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "getAllMesurments", query = "SELECT m FROM Mesurement m ORDER BY m.mesureTime asc"),
     @NamedQuery(name = "getLastHourMesurments", query = "SELECT m FROM Mesurement m WHERE m.mesureTime>=:start AND m.mesureTime<:end ORDER BY m.mesureTime asc")
 })
+@TypeDef(name = "hstore", typeClass = AttributesUserType.class)
 public class Mesurement implements Serializable {
 
     private static final long serialVersionUID = 20170819L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mesurment_seq")
-    @SequenceGenerator(name = "mesurment_seq", sequenceName = "hibernate_sequence", schema = "enviroment", allocationSize = 50)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mesurement_seq")
+    @SequenceGenerator(name = "mesurement_seq", sequenceName = "mesurement_sequence", schema = "enviroment", allocationSize = 50)
     private Long id;
     
     @Column(name = "mesure_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date mesureTime;
-    
-    @Column(name = "temperature")
-    private Float temperature;
-    
-    @Column(name = "presure")
-    private Float presure;
-    
-    @Column(name = "humidity")
-    private Float humidity;
 
+    @Column(name="attributes", columnDefinition = "hstore")
+    @Type(type="hstore")
+    private Map<String, String> attributes = new HashMap<>();
+    
     public Long getId() {
         return id;
     }
@@ -67,47 +69,37 @@ public class Mesurement implements Serializable {
         this.mesureTime = mesureTime;
     }
 
-    public Float getTemperature() {
-        return temperature;
-    }
+    public Map<String, String> getAttributes() {
+		return attributes;
+	}
 
-    public void setTemperature(Float temperature) {
-        this.temperature = temperature;
-    }
+	public void setAttributes(Map<String, String> attributes) {
+		this.attributes = attributes;
+	}
 
-    public Float getPresure() {
-        return presure;
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
 
-    public void setPresure(Float presure) {
-        this.presure = presure;
-    }
-
-    public Float getHumidity() {
-        return humidity;
-    }
-
-    public void setHumidity(Float humidity) {
-        this.humidity = humidity;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Mesurement)) {
-            return false;
-        }
-        Mesurement other = (Mesurement) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }    
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Mesurement other = (Mesurement) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
 }
