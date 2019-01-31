@@ -59,6 +59,29 @@ public class EnviromentCollectorBean {
     }
     
     @GET
+    @Path("temperature")
+    public String mesureTemperature(@QueryParam("value")String temperature) {
+    	LOGGER.log(Level.FINE, String.format("Received temperature mesurement [%s]", temperature));
+    	mesurementHandlerBean.storeTemperature(parseFloat(temperature));
+    	return String.format("Temperature[%s]", temperature);
+    }
+    
+    @GET
+    @Path("pressure")
+    public String mesurePressure(@QueryParam("value")String pressure) {
+    	LOGGER.log(Level.FINE, String.format("Received pressure mesurement [%s]", pressure));
+    	mesurementHandlerBean.storePressure(parseFloat(pressure));
+    	return String.format("Pressure[%s]", pressure);    	
+    }
+    @GET
+    @Path("humidity")
+    public String mesureHumidity(@QueryParam("value")String humidity) {
+    	LOGGER.log(Level.FINE, String.format("Received humidity mesurement [%s]", humidity));
+    	mesurementHandlerBean.storeHumidity(parseFloat(humidity));
+    	return String.format("Humidity[%s]", humidity);    	
+    }
+    
+    @GET
     @Path("getAll")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllMesurments() {
@@ -83,6 +106,16 @@ public class EnviromentCollectorBean {
     	LOGGER.log(Level.INFO, "Entering getLastMesurements ...");
         List<Mesurement> lastHourMesurements = mesurementHandlerBean.getLastHourMesurments();
         return Response.ok(lastHourMesurements).build();    	
+    }
+
+    private Float parseFloat(String value) {
+    	Float parsedValue = null;
+    	try{
+    		parsedValue = Float.parseFloat(value);
+    	}catch(NumberFormatException e) {
+    		LOGGER.log(Level.WARNING, String.format("Wrong data format, expecting number, received [%s]", value));
+    	}
+    	return parsedValue;
     }
     
     @PreDestroy

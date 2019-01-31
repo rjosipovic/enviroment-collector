@@ -3,7 +3,5 @@
   <persistence-unit name="home.enviromentPU" transaction-type="JTA">
     <jta-data-source>java:jboss/datasources/homeDS</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties>
-    </properties>
   </persistence-unit>
 </persistence>

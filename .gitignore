@@ -10,3 +10,4 @@ target/*
 
 #Lib folder
 lib/*
+/target/
