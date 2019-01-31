@@ -21,7 +21,7 @@ public class Humidity implements Serializable {
 	
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hum_seq_gen")
-    @SequenceGenerator(name = "hum_seq_gen", sequenceName = "humidity_sequence", schema = "enviroment", allocationSize = 1)
+    @SequenceGenerator(name = "hum_seq_gen", sequenceName = "humidity_sequence", schema = "enviroment", allocationSize = 50)
     private Long id;
 
     @Column(name = "mesure_time")

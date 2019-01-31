@@ -21,7 +21,7 @@ public class Pressure implements Serializable {
 	
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "press_seq_gen")
-    @SequenceGenerator(name = "press_seq_gen", sequenceName = "pressure_sequence", schema = "enviroment", allocationSize = 1)
+    @SequenceGenerator(name = "press_seq_gen", sequenceName = "pressure_sequence", schema = "enviroment", allocationSize = 50)
     private Long id;
 
     @Column(name = "mesure_time")

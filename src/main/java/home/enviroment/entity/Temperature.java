@@ -21,7 +21,7 @@ public class Temperature implements Serializable {
 	
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "temp_seq_gen")
-    @SequenceGenerator(name = "temp_seq_gen", sequenceName = "temperature_sequence", schema = "enviroment", allocationSize = 1)
+    @SequenceGenerator(name = "temp_seq_gen", sequenceName = "temperature_sequence", schema = "enviroment", allocationSize = 50)
     private Long id;
     
     @Column(name = "mesure_time")

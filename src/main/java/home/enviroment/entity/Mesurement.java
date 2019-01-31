@@ -35,7 +35,7 @@ public class Mesurement implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mesurment_seq")
-    @SequenceGenerator(name = "mesurment_seq", sequenceName = "hibernate_sequence", schema = "enviroment", allocationSize = 1)
+    @SequenceGenerator(name = "mesurment_seq", sequenceName = "hibernate_sequence", schema = "enviroment", allocationSize = 50)
     private Long id;
     
     @Column(name = "mesure_time")
